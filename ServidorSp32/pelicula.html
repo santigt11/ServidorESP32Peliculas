@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Detalles de la Película</title>
+    <!-- Incluir Webtor SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
+</head>
+<body>
+    <div class="contenedorDetalle" id="contenedorDetalle">
+        <div class="loading">Cargando detalles de la película...</div>
+    </div>
+
+    <!-- Recuadro para iniciar reproducción -->
+    <div class="recuadro-reproducir" id="recuadroReproducir" onclick="reproducirPelicula()">
+        <img src="https://img.icons8.com/ios-filled/50/000000/play.png" alt="Reproducir" class="icono-reproducir">
+        <p>Haz clic para ver la película</p>
+    </div>
+    
+    <!-- Contenedor donde se cargará el reproductor Webtor -->
+    <div id="player" class="webtor" allowfullscreen></div>
+
+
+    <div class="volver">
+        <button onclick="window.location.href='index.html'">Volver a películas</button>
+    </div>
+
+    <!-- Script para manejar la reproducción -->
+    <!-- Script para manejar la reproducción -->
+<script>
+    function reproducirPelicula() {
+        // Supón que el enlace magnet se genera dinámicamente aquí
+        const magnetGenerado = obtenerMagnetDinamicamente();  // Llamamos a una función que obtiene el magnet
+        
+        // Ahora insertamos el enlace magnet generado en la configuración del reproductor
+        window.webtor = window.webtor || [];
+        window.webtor.push({
+            id: 'player',  // El ID del div donde se insertará el reproductor
+            magnet: magnetGenerado,  // Usamos el enlace magnet generado dinámicamente
+            poster: 'https://via.placeholder.com/150/0000FF/808080',  // Imagen de portada (opcional)
+            lang: 'es',  // Cambiar el idioma si lo prefieres
+            
+        });
+
+        // Ocultar el recuadro de reproducción cuando el video se cargue
+        document.getElementById('recuadroReproducir').style.display = 'none';
+    }
+
+    function obtenerMagnetDinamicamente() {
+    // Obtener el magnet desde localStorage
+    const magnetGuardado = localStorage.getItem('magnetLink');
+
+    if (magnetGuardado) {
+        return magnetGuardado;
+    } else {
+        alert('No se ha seleccionado una calidad de torrent.');
+        return '';  // Devolver cadena vacía si no hay magnet
+    }
+    function activarPantallaCompleta() {
+    let player = document.getElementById('player');
+
+    if (player.requestFullscreen) {
+        player.requestFullscreen();
+    } else if (player.mozRequestFullScreen) { // Firefox
+        player.mozRequestFullScreen();
+    } else if (player.webkitRequestFullscreen) { // Chrome, Safari y Opera
+        player.webkitRequestFullscreen();
+    } else if (player.msRequestFullscreen) { // Edge
+        player.msRequestFullscreen();
+    }
+}
+
+}
+
+    
+</script>
+
+
+    <script src="js/scriptPelicula.js"></script>
+</body>
+</html>
